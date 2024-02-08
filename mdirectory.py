@@ -34,7 +34,10 @@ def initialize(Enteries):
 
 
 def save(Enteries):
-    remove("entries.csv")
+    try:
+        remove("entries.csv")
+    except:
+        print("This was the first session and will be saved")
     try:
         with open("entries.csv", mode="w") as file:
             csvwriter = csv.writer(file)

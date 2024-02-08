@@ -115,7 +115,7 @@ def can_kill(crow_points, vulture_point) -> bool:
 pygame.init()
 pygame.mixer.init()
 
-sound = pygame.mixer.Sound('sound.mp3')
+sound = pygame.mixer.Sound("sound.mp3")
 
 board_img = pygame.image.load("board.png")
 board_img = pygame.transform.scale(board_img, (800, 800))
@@ -146,12 +146,19 @@ vulture_point = -1
 
 state = 1  # all the crows have not been placed yet
 
+
 def print_to_display(text_data):
-    text = font.render(text_data, True, (0, 0, 0))  # Change the color to black
+    text = font.render(text_data, True, (0, 0, 0))
+    if text_data == "VULTURE WON":
+        text = font.render(text_data, True, (255, 0, 0))
+    if text_data == "CROWS WIN":
+        text = font.render(text_data, True, (0, 255, 0))
+
     text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text, text_rect)
-    pygame.display.update()  # Update the display
+    pygame.display.update()
     pygame.time.wait(400)
+
 
 while run:
     screen.fill([255, 255, 255])
@@ -167,7 +174,7 @@ while run:
 
     if crows_eaten == 4:
         print_to_display("VULTURE WON")
-        print ("VULTURE WON")
+        print("VULTURE WON")
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -178,7 +185,7 @@ while run:
     if run == False:
         break
 
-    # if vulure can't move crows have won
+    # if vulture can't move crows have won
     canWin = False
     if vulture_point != -1:
         for i in range(11):
@@ -231,6 +238,8 @@ while run:
                 crow_positions.append(give_pos_exact(pos))
                 crows_placed = crows_placed + 1
                 if crows_placed == 7:
+                    print_to_display("ALL CROWS PLACED")
+                    print("ALL CROWS PLACED")
                     state = 2
                 turn = turn + 1
             elif turn % 2 == 1 and state == 2:
