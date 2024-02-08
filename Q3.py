@@ -175,6 +175,8 @@ while run:
                     break
             if run == False:
                 break
+    if run == False:
+        break
 
     # if vulure can't move crows have won
     canWin = False
@@ -201,8 +203,15 @@ while run:
     if not canWin:
         print_to_display("CROWS WIN")
         print("CROWS WIN")
-        run = False
-        continue
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    break
+            if run == False:
+                break
+    if run == False:
+        break
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
